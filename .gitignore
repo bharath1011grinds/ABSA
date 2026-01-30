@@ -6,7 +6,6 @@ __pycache__/
 
 # Virtual environment
 venv/
-
 # Data (raw + generated)
 data/raw/
 data/processed/

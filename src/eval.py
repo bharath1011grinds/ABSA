@@ -6,6 +6,7 @@ from model import ABSAEncoder, ABSAClassifier
 from data import ABSADataset, parse_semeval_xml, save_json, collate_fn
 from torch.utils.data import DataLoader
 from sklearn.metrics import accuracy_score, f1_score
+from sklearn.metrics import confusion_matrix
 
 
 from config import EMBEDDING_DIM, HIDDEN_DIM, LABEL_MAP
@@ -42,8 +43,9 @@ def evaluate(model, loader):
 
     acc = accuracy_score(all_labels, all_preds)
     macro_f1 = f1_score(all_labels, all_preds, average="macro")
+    cm = confusion_matrix(all_labels, all_preds)
 
-    return acc, macro_f1
+    return acc, macro_f1, cm
 
 
 if __name__ == '__main__':

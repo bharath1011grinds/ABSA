@@ -83,7 +83,10 @@ class ABSAEncoder(nn.Module):
 
         #aspect embedding
         asp_emb = self.embedding(aspect_ids) #B*A*E
-        asp_emb = asp_emb.mean(dim=1) #B*E
+        asp_emb_bilstm,_ = self.bilstm(asp_emb)
+        asp_emb = asp_emb.mean(dim=1) #B*E      
+        asp_emb_bilstm = asp_emb_bilstm.mean(dim=1) #B*E
+        #commenting the below line because we are trying bilstm on aspect as well, will uncomment later if needed.
         asp_vec = self.aspect_proj(asp_emb)#Projecting the mean aspect embedding be compatible with the sentence embedding.
 
         out = self.attention(H, asp_vec, sentence_mask)
